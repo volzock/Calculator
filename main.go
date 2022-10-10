@@ -15,6 +15,6 @@ func getExpression() string {
 
 func main() {
 	expression := getExpression()
-	result := calculations.Сalculate(expression)
+	result := calculations.Compute(expression)
 	fmt.Println(result)
 }

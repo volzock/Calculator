@@ -3,13 +3,26 @@ package calculations
 import (
 	"calculator/structs"
 	"calculator/utils"
+	"fmt"
 	"strconv"
 	"strings"
 )
 
-func Сalculate(expression string) int {
-	root := new(structs.BinaryTreeNode)
+func Compute(expression string) int {
 	clearExpresssion(&expression)
+
+	for strings.Contains(expression, "(") {
+		expression = fmt.Sprintf("%s%d%s",
+			expression[0:strings.Index(expression, "(")],
+			calculate(expression[strings.Index(expression, "(")+1:strings.Index(expression, ")")]),
+			expression[strings.Index(expression, ")")+1:])
+	}
+
+	return calculate(expression)
+}
+
+func calculate(expression string) int {
+	root := new(structs.BinaryTreeNode)
 	processing(&expression, root)
 	calculations(root)
 	return root.Value
